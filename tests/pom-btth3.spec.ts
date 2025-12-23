@@ -1,5 +1,6 @@
 import {test, expect} from "@playwright/test"
 import { LoginPage } from "../pages/loginPage"
+import { fail } from "assert";
 
 test.describe ('Practice Hook', () => {
 
@@ -18,8 +19,9 @@ test('login with invalid info', async ({page}) => {
     await expect(page.locator('[data-test="error-button"]')).toHaveText('Login failed');
 });
 test.afterEach(async ({page}, testInfo) => {
+if(testInfo.status === 'failed'){
 await page.screenshot({ path: `screenshots/${testInfo.title}.png`, fullPage: true });
-});
+}}); 
 
 test.afterAll(async () => {
     console.log('Stop testing')
