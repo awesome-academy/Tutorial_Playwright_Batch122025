@@ -1,16 +1,22 @@
+import { type Page, type Locator } from '@playwright/test';
+ export class LoginPage{
+    readonly page: Page;
+    readonly usernameInput: Locator;
+    readonly passwordInput: Locator;
+    readonly loginButton: Locator;
 
-export class LoginPage{
-    public username: string;
-    public password: string;
-
-    constructor(username: string, password: string) {
-        this.username = username;
-        this.password = password;
+    constructor(page: Page) {
+        this.page = page;
+        this.usernameInput = page.locator('#user-name');
+        this.passwordInput = page.locator('input[name="password"]');
+        this.loginButton = page.locator('#login-button');
     }
     async gotoLoginPage(){
-        console.log("Đi đến trang login...");
+        await this.page.goto('https://www.saucedemo.com/');
     }
-    async login(us: LoginPage){
-        console.log(`Đăng nhập với ${us.username} và ${us.password}`);
+    async loginValid(username: string , password: string ){
+        await this.usernameInput.fill(username);
+        await this.passwordInput.fill(password);
+        await this.loginButton.click();
     }
 }
