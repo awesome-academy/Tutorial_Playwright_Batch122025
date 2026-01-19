@@ -1,0 +1,38 @@
+{
+  "name": "PlayWright_test1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report",
+    "test:login": "playwright test tests/authentication/login.spec.ts",
+    "lint": "eslint . --ext .ts,.tsx --fix",
+    "lint:check": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "format:staged": "lint-staged",
+    "type-check": "tsc --noEmit",
+    "quality:check": "pnpm lint:check && pnpm format:check && pnpm type-check",
+    "quality:fix": "pnpm lint && pnpm format",
+    "prepare": "husky",
+    "pre-commit": "lint-staged",
+    "mcp:build": "tsc",
+    "mcp:dev": "tsx src/mcp-server/index.ts",
+    "mcp:start": "node dist/mcp-server/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.25.0",
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.2",
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.8",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

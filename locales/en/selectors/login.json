@@ -1,0 +1,32 @@
+{
+  "loginInput": {
+    "name": "Login",
+    "loc": "input[name='login']"
+  },
+  "passwordInput": {
+    "loc": "input[name='password']"
+  },
+  "loginButton": {
+    "name": "Login",
+    "loc": "button[type='submit']"
+  },
+  "registerLink": {
+    "name": "Register",
+    "loc": "a[href='/register']"
+  },
+  "errorMessage": {
+    "text": "Invalid username/password",
+    "loc": "div.form-group"
+  },
+  "logoutLink": {
+    "name": "Logout",
+    "loc": "a[href='javascript:void(0)']"
+  },
+  "profileLink": {
+    "name": "Profile",
+    "loc": "a[href='/profile']"
+  },
+  "welcomeMessage": {
+    "loc": "div.container ul li"
+  }
+}
