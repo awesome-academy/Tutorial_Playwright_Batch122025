@@ -14,60 +14,44 @@ export class LoginPage extends BasePage {
     super(page);
   }
 
-  /**
-   * Get the login input field locator
-   */
+  //Get the login input field locator
   private get loginInput(): Locator {
-    return this.page.locator(this.loginSelectors.loginInput.loc);
+    return this.page.getByRole('textbox', { name: this.loginSelectors.loginInput.name });
   }
 
-  /**
-   * Get the password input field locator
-   */
+  //Get the password input field locator
   private get passwordInput(): Locator {
-    return this.page.locator(this.loginSelectors.passwordInput.loc);
+    return this.page.locator(this.loginSelectors.passwordInput.selector);
   }
 
-  /**
-   * Get the login button locator
-   */
+  //Get the login button locator
   private get loginButton(): Locator {
     return this.page.getByRole('button', { name: this.loginSelectors.loginButton.name });
   }
 
-  /**
-   * Get the register link locator
-   */
+  //Get the register link locator
   private get registerLink(): Locator {
     return this.page.getByRole('link', { name: this.loginSelectors.registerLink.name });
   }
 
-  /**
-   * Get the error message locator
-   */
+  //Get the error message locator
   private get errorMessage(): Locator {
     return this.page.getByText(this.loginSelectors.errorMessage.text);
   }
 
-  /**
-   * Get the logout link locator (visible after login)
-   */
+  //Get the logout link locator (visible after login)
   private get logoutLink(): Locator {
     return this.page.getByRole('link', { name: this.loginSelectors.logoutLink.name });
   }
 
-  /**
-   * Get the profile link locator (visible after login)
-   */
+  //Get the profile link locator (visible after login)
   private get profileLink(): Locator {
     return this.page.getByRole('link', { name: this.loginSelectors.profileLink.name });
   }
 
-  /**
-   * Get the welcome message locator
-   */
+  //Get the welcome message locator
   private get welcomeMessage(): Locator {
-    return this.page.locator(this.loginSelectors.welcomeMessage.loc).first();
+    return this.page.locator(this.loginSelectors.welcomeMessage.selector).first();
   }
 
   /**

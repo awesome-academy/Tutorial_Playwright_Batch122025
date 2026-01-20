@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../src/pages/login.page';
 import testData from '../../locales/en/data/login.json';
 import { ROUTES } from '../../src/constants/routes';
+import { url } from 'node:inspector';
 
 /**
  * Test Suite: Login Functionality for Buggy.justtestit.org
@@ -46,6 +47,10 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
       // - Register button is displayed
       // - No authentication errors or redirects occur
 
+      // Wait for page to load completely
+      await loginPage.waitForPageLoad();
+
+      // Verify URL and page title
       await expect(page).toHaveURL(ROUTES.HOME);
       await expect(page).toHaveTitle('Buggy Cars Rating');
 
@@ -79,6 +84,9 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
       // - "Register" button is visible and clickable
       // - All UI elements are properly aligned and accessible
 
+      // Wait for page to load completely
+      await loginPage.waitForPageLoad();
+
       // Verify username field
       await expect(loginPage.getLoginInputLocator()).toBeVisible();
       const loginPlaceholder = await loginPage.getLoginInputPlaceholder();
@@ -94,6 +102,8 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
     });
 
     test('ID-2: Verify Password Field Input Masking', async () => {
+      // Wait for page to load completely
+      await loginPage.waitForPageLoad();
       // Test Steps:
       // 1. Click in the Password input field to focus
       // 2. Type the test string into the Password field
@@ -109,7 +119,8 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
 
       // Verify password field type is 'password' for masking
       const passwordType = await loginPage.getPasswordInputType();
-      expect(passwordType).toBe('password');
+      const expectedType = 'password';
+      expect(passwordType).toBe(expectedType);
 
       // Type test string and verify it's masked
       await loginPage.fillPassword(testData.testStrings.passwordMaskTest);
@@ -117,13 +128,13 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
       // Verify the input has value but type is still 'password'
       const passwordValue = await loginPage.getPasswordInputValue();
       expect(passwordValue).toBe(testData.testStrings.passwordMaskTest);
-      expect(await loginPage.getPasswordInputType()).toBe('password');
+      expect(await loginPage.getPasswordInputType()).toBe(expectedType);
 
       // Click outside to lose focus
       await loginPage.getLoginInputLocator().click();
 
       // Verify masking still active after losing focus
-      expect(await loginPage.getPasswordInputType()).toBe('password');
+      expect(await loginPage.getPasswordInputType()).toBe(expectedType);
     });
   });
 
@@ -145,7 +156,6 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
       // - Login is successful without errors
       // - User is redirected or stays on home page with logged-in state
       // - Welcome message is displayed: "Hi, Quyen"
-      // - User session is established
       // - Logout option becomes available
       // - No error messages are displayed
 
@@ -154,10 +164,11 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
         testData.validCredentials.password
       );
 
-      // Wait for login to complete
-      await page.waitForLoadState('networkidle');
+      // Wait for page to load completely
+      await loginPage.waitForPageLoad();
 
       // Verify successful login
+      await expect(page).toHaveURL(ROUTES.HOME);
       await expect(loginPage.getLogoutLinkLocator()).toBeVisible();
       await expect(loginPage.getProfileLinkLocator()).toBeVisible();
 
@@ -180,23 +191,20 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
       // 2. Enter valid Username: "quyenlt"
       // 3. Enter INVALID Password: "WrongPassword"
       // 4. Click the "Login" button
-      // 5. Wait for response
 
       // Expected Results:
       // - Login fails
       // - Appropriate error message is displayed
       // - Error message content: "Invalid username/password"
       // - User remains on the Login page
-      // - No redirect to authenticated pages occurs
-      // - No user session is created
 
       await loginPage.login(
         testData.invalidCredentials.invalidPassword.username,
         testData.invalidCredentials.invalidPassword.password
       );
 
-      // Wait for error response
-      await page.waitForLoadState('networkidle');
+      // Wait for page to load completely
+      await loginPage.waitForPageLoad();
 
       // Verify error message is displayed
       await expect(loginPage.getErrorMessageLocator()).toBeVisible();
@@ -206,8 +214,9 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
       // Verify user is not logged in
       await expect(loginPage.getLogoutLinkLocator()).not.toBeVisible();
 
-      // Verify still on login page (login button visible)
+      // Verify still on login page
       await expect(loginPage.getLoginButtonLocator()).toBeVisible();
+      await expect(page).toHaveURL(ROUTES.LOGIN);
     });
 
     test('ID-5: Login with Invalid Username and Valid Password', async ({ page }) => {
@@ -216,7 +225,6 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
       // 2. Enter INVALID Username: "WrongUsername"
       // 3. Enter valid Password: "Aa@123456"
       // 4. Click the "Login" button
-      // 5. Wait for response
 
       // Expected Results:
       // - Login fails
@@ -231,8 +239,8 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
         testData.invalidCredentials.invalidUsername.password
       );
 
-      // Wait for error response
-      await page.waitForLoadState('networkidle');
+      // Wait for page to load completely
+      await loginPage.waitForPageLoad();
 
       // Verify error message is displayed
       await expect(loginPage.getErrorMessageLocator()).toBeVisible();
@@ -244,6 +252,8 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
 
       // Verify still on login page
       await expect(loginPage.getLoginButtonLocator()).toBeVisible();
+      await expect(page).toHaveURL(ROUTES.LOGIN);
+
     });
   });
 
@@ -269,17 +279,12 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
       await loginPage.fillPassword(testData.emptyFields.emptyUsername.password);
       await loginPage.clickLoginButton();
 
-      // Wait for response
-      await page.waitForLoadState('networkidle');
+      // Wait for page to load completely
+      await loginPage.waitForPageLoad();
 
-      // Verify user is not logged in
-      await expect(loginPage.getLogoutLinkLocator()).not.toBeVisible();
-
-      // Verify still on login page
-      await expect(loginPage.getLoginButtonLocator()).toBeVisible();
-
-      // Note: Application may or may not show specific validation message
-      // The important part is that login fails
+      // Verify browser validation tooltip for empty username
+      const usernameValidationMsg = await page.locator('input[name="login"]').evaluate(el => el.validationMessage);
+      expect(usernameValidationMsg).toBe(testData.errorMessages.usernameRequired);
     });
 
     test('ID-7: Login with Empty Password Field', async ({ page }) => {
@@ -301,18 +306,12 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
       await loginPage.fillUsername(testData.emptyFields.emptyPassword.username);
       await loginPage.clickLoginButton();
 
-      // Wait for response
-      await page.waitForLoadState('networkidle');
+      // Wait for page to load completely
+      await loginPage.waitForPageLoad();
 
-      // Verify user is not logged in
-      await expect(loginPage.getLogoutLinkLocator()).not.toBeVisible();
-
-      // Verify still on login page
-      await expect(loginPage.getLoginButtonLocator()).toBeVisible();
-
-      // Verify username is retained
-      const usernameValue = await loginPage.getLoginInputValue();
-      expect(usernameValue).toBe(testData.emptyFields.emptyPassword.username);
+      // Verify browser validation tooltip for empty password
+      const passwordValidationMsg = await page.locator('input[name="password"]').evaluate(el => el.validationMessage);
+      expect(passwordValidationMsg).toBe(testData.errorMessages.passwordRequired);
     });
   });
 
@@ -328,8 +327,8 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
       // 4. Click the "Login" button
       // 5. Observe authentication result
 
-      // Expected Results (if case-sensitive):
-      // - Login fails
+      // Expected Results:
+      // - Login fails (case-sensitive)
       // - Error message is displayed: "Invalid username/password"
       // - User remains on the Login page
       // - No authentication is granted
@@ -339,24 +338,13 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
         testData.edgeCases.mixedCaseUsername.password
       );
 
-      // Wait for response
-      await page.waitForLoadState('networkidle');
+      // Wait for page to load completely
+      await loginPage.waitForPageLoad();
 
-      // Check if login succeeded or failed
-      const isLoggedIn = await loginPage.isLoggedIn();
-
-      if (isLoggedIn) {
-        // Username is case-insensitive
-        console.log('Note: Username is case-INSENSITIVE');
-        await expect(loginPage.getLogoutLinkLocator()).toBeVisible();
-      } else {
-        // Username is case-sensitive (expected behavior)
-        console.log('Note: Username is case-SENSITIVE');
-        await expect(loginPage.getErrorMessageLocator()).toBeVisible();
-        await expect(loginPage.getLogoutLinkLocator()).not.toBeVisible();
-      }
-
-      // Test passes either way, documenting the behavior
+      // Always expect login to fail
+      await expect(loginPage.getErrorMessageLocator()).toBeVisible();
+      await expect(loginPage.getLogoutLinkLocator()).not.toBeVisible();
+      await expect (page).toHaveURL(ROUTES.LOGIN);
     });
 
     test('ID-9: Login with 256-Character Input (Boundary Condition Test)', async ({ page }) => {
@@ -383,8 +371,8 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
       await loginPage.fillPassword(longPassword);
       await loginPage.clickLoginButton();
 
-      // Wait for response
-      await page.waitForLoadState('networkidle');
+      // Wait for page to load completely
+      await loginPage.waitForPageLoad();
 
       // Verify application didn't crash
       await expect(page).toHaveURL(ROUTES.HOME);
@@ -414,14 +402,14 @@ test.describe('Login Functionality - Buggy.justtestit.org', () => {
         testData.validCredentials.password
       );
 
-      await page.waitForLoadState('networkidle');
-
       // Verify logged in
       await expect(loginPage.getLogoutLinkLocator()).toBeVisible();
 
       // Logout
       await loginPage.clickLogout();
-      await page.waitForLoadState('networkidle');
+
+      // Wait for page to load completely
+      await loginPage.waitForPageLoad();
 
       // Verify logged out (login form visible again)
       await expect(loginPage.getLoginInputLocator()).toBeVisible();

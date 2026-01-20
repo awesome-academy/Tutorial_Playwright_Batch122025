@@ -47,7 +47,7 @@
   },
   "errorMessages": {
     "invalidCredentials": "Invalid username/password",
-    "usernameRequired": "Username is required",
-    "passwordRequired": "Password is required"
+    "usernameRequired": "Please fill out this field.",
+    "passwordRequired": "Please fill out this field."
   }
 }

@@ -1,32 +1,39 @@
 {
   "loginInput": {
-    "name": "Login",
-    "loc": "input[name='login']"
+    "strategy": "role",
+    "role": "textbox",
+    "name": "Login"
   },
   "passwordInput": {
-    "loc": "input[name='password']"
+    "strategy": "locator",
+    "selector": "input[name='password']"
   },
   "loginButton": {
-    "name": "Login",
-    "loc": "button[type='submit']"
+    "strategy": "role",
+    "role": "button",
+    "name": "Login"
   },
   "registerLink": {
-    "name": "Register",
-    "loc": "a[href='/register']"
+    "strategy": "role",
+    "role": "link",
+    "name": "Register"
   },
   "errorMessage": {
-    "text": "Invalid username/password",
-    "loc": "div.form-group"
+    "strategy": "text",
+    "text": "Invalid username/password"
   },
   "logoutLink": {
-    "name": "Logout",
-    "loc": "a[href='javascript:void(0)']"
+    "strategy": "role",
+    "role": "link",
+    "name": "Logout"
   },
   "profileLink": {
-    "name": "Profile",
-    "loc": "a[href='/profile']"
+    "strategy": "role",
+    "role": "link",
+    "name": "Profile"
   },
   "welcomeMessage": {
-    "loc": "div.container ul li"
+    "strategy": "locator",
+    "selector": "div.container ul li"
   }
 }
