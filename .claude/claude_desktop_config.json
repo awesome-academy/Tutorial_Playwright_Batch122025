@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "playwright-test-server": {
+      "command": "node",
+      "args": [
+        "C:/Users/le.thao.quyen/projects/Tutorial_Playwright_Batch122025/Tutorial_Playwright_Batch122025/dist/mcp-server/index.js"
+      ]
+    }
+  }
+}

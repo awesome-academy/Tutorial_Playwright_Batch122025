@@ -1,0 +1,53 @@
+{
+  "validCredentials": {
+    "username": "quyenlt",
+    "password": "Aa@123456",
+    "expectedWelcome": "Hi, Quyen"
+  },
+  "invalidCredentials": {
+    "invalidPassword": {
+      "username": "quyenlt",
+      "password": "WrongPassword"
+    },
+    "invalidUsername": {
+      "username": "WrongUsername",
+      "password": "Aa@123456"
+    },
+    "nonExistentUser": {
+      "username": "wronguser",
+      "password": "wrongpass"
+    }
+  },
+  "emptyFields": {
+    "emptyUsername": {
+      "username": "",
+      "password": "Aa@123456"
+    },
+    "emptyPassword": {
+      "username": "quyenlt",
+      "password": ""
+    },
+    "bothEmpty": {
+      "username": "",
+      "password": ""
+    }
+  },
+  "edgeCases": {
+    "mixedCaseUsername": {
+      "username": "QuyenLt",
+      "password": "Aa@123456"
+    },
+    "boundaryTest": {
+      "usernameLength": 256,
+      "passwordLength": 256
+    }
+  },
+  "testStrings": {
+    "passwordMaskTest": "TestPassword123!@#"
+  },
+  "errorMessages": {
+    "invalidCredentials": "Invalid username/password",
+    "usernameRequired": "Please fill out this field.",
+    "passwordRequired": "Please fill out this field."
+  }
+}

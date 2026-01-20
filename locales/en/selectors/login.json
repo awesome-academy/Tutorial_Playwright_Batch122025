@@ -1,0 +1,39 @@
+{
+  "loginInput": {
+    "strategy": "role",
+    "role": "textbox",
+    "name": "Login"
+  },
+  "passwordInput": {
+    "strategy": "locator",
+    "selector": "input[name='password']"
+  },
+  "loginButton": {
+    "strategy": "role",
+    "role": "button",
+    "name": "Login"
+  },
+  "registerLink": {
+    "strategy": "role",
+    "role": "link",
+    "name": "Register"
+  },
+  "errorMessage": {
+    "strategy": "text",
+    "text": "Invalid username/password"
+  },
+  "logoutLink": {
+    "strategy": "role",
+    "role": "link",
+    "name": "Logout"
+  },
+  "profileLink": {
+    "strategy": "role",
+    "role": "link",
+    "name": "Profile"
+  },
+  "welcomeMessage": {
+    "strategy": "locator",
+    "selector": "div.container ul li"
+  }
+}
