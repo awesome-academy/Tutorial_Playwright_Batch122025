@@ -1,0 +1,43 @@
+{
+  "logo": {
+    "strategy": "role",
+    "role": "link",
+    "name": "Buggy Rating"
+  },
+  "navigation": {
+    "header": {
+      "strategy": "role",
+      "role": "banner"
+    },
+    "nav": {
+      "strategy": "role",
+      "role": "navigation"
+    }
+  },
+  "mainHeading": {
+    "strategy": "role",
+    "role": "heading",
+    "name": "Buggy Cars Rating",
+    "level": 1
+  },
+  "mainContent": {
+    "strategy": "role",
+    "role": "main"
+  },
+  "footer": {
+    "facebookLink": {
+      "strategy": "role",
+      "role": "link",
+      "name": "Facebook"
+    },
+    "twitterLink": {
+      "strategy": "role",
+      "role": "link",
+      "name": "Twitter"
+    },
+    "copyrightText": {
+      "strategy": "text",
+      "text": "© 2016 Buggy Software, Inc."
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "urls": {
+    "home": "https://buggy.justtestit.org/",
+    "register": "https://buggy.justtestit.org/register",
+    "facebook": "https://www.facebook.com",
+    "twitter": "https://www.twitter.com"
+  },
+  "expectedText": {
+    "pageTitle": "Buggy Cars Rating",
+    "logoText": "Buggy Rating",
+    "mainHeading": "Buggy Cars Rating",
+    "loginButtonText": "Login",
+    "registerLinkText": "Register",
+    "copyrightText": "© 2016 Buggy Software, Inc."
+  }
+}
